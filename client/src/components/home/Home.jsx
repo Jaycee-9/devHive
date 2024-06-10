@@ -26,7 +26,7 @@ export default function Home() {
     <div className="px-10 max-sm:px-4">
       <LeftDrawer className="max-w-[200px]" />
       <div className="max-w-[1200px] rounded-[32px] shadow-2xl p-10 mx-auto mt-[100px]">
-        <h1>{user.username} welcome to devHive...</h1>
+        <h1> Hi! {user.username} welcome to devHive...</h1>
       </div>
     </div>
   );
