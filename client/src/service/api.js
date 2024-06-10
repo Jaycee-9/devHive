@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const URL = "https://dev-hive-ten.vercel.app";
-axios.defaults.withCredentials = true;
+const URL = "http://localhost:8080";
+
 export const userSignup = async (credentials) => {
   try {
     const response = axios.post(`${URL}/signup`, credentials);
