@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import { useData } from "@/utils/context";
