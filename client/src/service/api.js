@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "https://dev-hive-ten.vercel.app";
+const URL = "";
 
 export const userSignup = async (credentials) => {
   try {
