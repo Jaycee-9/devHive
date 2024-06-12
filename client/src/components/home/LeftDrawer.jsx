@@ -3,15 +3,22 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Drawer from "@mui/material/Drawer";
 import { HiveTwoTone } from "@mui/icons-material/";
-import List from "@mui/material/List";
 
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import { useData } from "@/utils/context";
+
+const navLink = [
+  {
+    name: "Explore",
+    link: "/explore",
+    img: "/images/png/leftDrawer_explore.png",
+  },
+
+  {
+    name: "Profile",
+    link: "/profile",
+    img: "/images/png/leftDrawer_developer.png",
+  },
+];
 
 function LeftDrawer() {
   const router = useRouter();
@@ -33,18 +40,21 @@ function LeftDrawer() {
       onClick={toggleDrawer(false)}
     >
       <h1 className="text-center text-[32px] font-semibold">DevHive</h1>
-      <List className="flex-grow">
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      <ul className="flex-grow">
+        {navLink.map((link, index) => {
+          return (
+            <li
+              className="max-w-[300px] mx-auto rounded-[32px] flex items-center p-5 relative hover:bg-gray-200 hover:scale-105 transition-transform duration-200"
+              key={index}
+            >
+              <img src={link.img} alt="logo" className="w-10" />
+              <a className="text-[18px] absolute left-[100px]" href={link.link}>
+                {link.name}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
       <div className="relative mt-auto ">
         <button
           onClick={handleLogout}
