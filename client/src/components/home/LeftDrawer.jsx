@@ -18,6 +18,11 @@ const navLink = [
     link: "/profile",
     img: "/images/png/leftDrawer_developer.png",
   },
+  {
+    name: "Your codes",
+    link: "/",
+    img: "/images/png/coding-book.png",
+  },
 ];
 
 function LeftDrawer() {
