@@ -8,6 +8,11 @@ import { useData } from "@/utils/context";
 
 const navLink = [
   {
+    name: "Codes",
+    link: "/",
+    img: "/images/png/coding-book.png",
+  },
+  {
     name: "Explore",
     link: "/explore",
     img: "/images/png/leftDrawer_explore.png",
@@ -17,11 +22,6 @@ const navLink = [
     name: "Profile",
     link: "/profile",
     img: "/images/png/leftDrawer_developer.png",
-  },
-  {
-    name: "Your codes",
-    link: "/",
-    img: "/images/png/coding-book.png",
   },
 ];
 
