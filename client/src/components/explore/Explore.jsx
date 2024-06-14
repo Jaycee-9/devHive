@@ -25,7 +25,7 @@ export default function Explore() {
   return (
     <div className="px-10 max-sm:px-4">
       <LeftDrawer className="max-w-[200px]" />
-      <div className="max-w-[1200px] bg-slate-200 rounded-[32px] shadow-2xl p-10 mx-auto mt-[100px]">
+      <div className="max-w-[1200px]  rounded-[32px] shadow-2xl p-10 mx-auto mt-[100px]">
         <Content />
       </div>
     </div>

@@ -31,7 +31,7 @@ function Content() {
         return (
           <div
             key={index}
-            className="max-w-[450px] bg-white shadow-2xl rounded-3xl p-3 mx-3 my-7"
+            className="max-w-[450px] bg-white border-[1px] border-gray-200 shadow-lg rounded-3xl p-3 mx-3 my-7 "
           >
             <div className="flex">
               <img
