@@ -6,7 +6,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 function Profile() {
   const { setUser, user } = useData();
-  console.log(user);
 
   useEffect(() => {
     const userData = JSON.parse(sessionStorage.getItem("user"));

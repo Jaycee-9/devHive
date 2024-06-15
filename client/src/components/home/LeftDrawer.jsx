@@ -80,7 +80,10 @@ function LeftDrawer() {
         />
       </div>
 
-      <div className=" absolute top-[100%] right-32 max-sm:right-14">
+      <div
+        onClick={toggleDrawer(false)}
+        className=" absolute top-[100%] right-32 max-sm:right-14"
+      >
         <button
           onClick={handleLogout}
           className="bg-red-500  hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
