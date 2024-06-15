@@ -19,3 +19,12 @@ export const userLogin = (credentials) => {
     console.log(`Error : ${error}`);
   }
 };
+
+export const codeUpload = (codeDetails) => {
+  try {
+    const response = axios.post(`${URL}/add_code`, codeDetails);
+    return response;
+  } catch (error) {
+    console.log(`Error : ${error}`);
+  }
+};

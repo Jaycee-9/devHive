@@ -2,6 +2,7 @@
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { codeUpload } from "@/service/api";
 import { useEffect, useState } from "react";
 import { useData } from "@/utils/context";
 import { toast } from "react-toastify";
@@ -9,7 +10,7 @@ import { toast } from "react-toastify";
 const initialPost = {
   title: "",
   caption: "",
-  media: "/images/png/Explore_repository.png",
+  media: "",
   user: "",
   userImage: "",
   kudos: "",
@@ -29,28 +30,9 @@ const initialPost = {
   createDate: new Date(),
 };
 
-const setFile = (file) => {
-  if (file) {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPost((prevPost) => ({
-        ...prevPost,
-        media: reader.result, // This assumes you want to display the uploaded image directly
-      }));
-    };
-    reader.readAsDataURL(file);
-  } else {
-    setPost((prevPost) => ({
-      ...prevPost,
-      media: defaultImageURL,
-    }));
-  }
-};
-
 function AddCode({ handleClickOpen, handleClose, dialogOpen }) {
   const [post, setPost] = useState(initialPost);
   const [file, setFile] = useState("");
-  const [error, setError] = useState(true);
   const { user } = useData();
 
   useEffect(() => {
@@ -62,6 +44,8 @@ function AddCode({ handleClickOpen, handleClose, dialogOpen }) {
 
         //API call
         post.media = ""; // todo
+      } else {
+        post.media = "/images/png/Explore_repository.png";
       }
       post.user = user.username;
     };
@@ -76,29 +60,29 @@ function AddCode({ handleClickOpen, handleClose, dialogOpen }) {
   const validate = () => {
     if (post.title.length === 0) {
       toast.warn("Oops! It looks like you forgot to give your code a title");
-      setError(false);
       return false;
     } else if (post.caption.length === 0) {
       toast.warn("Uh-oh! It seems you missed adding a caption.");
-      setError(false);
       return false;
     } else if (post.repo.length === 0) {
       toast.warn("Looks like we’re missing the repository link");
-      setError(false);
       return false;
     }
     return true;
   };
 
-  console.log(error);
-  const submitForm = (evt) => {
+  const submitForm = async (evt) => {
     evt.preventDefault();
+
     if (validate()) {
-      console.log(post);
-      toast.success("Your code has been successfully uploaded. Great job!");
-      setInterval(() => {
-        handleClose();
-      }, 4000);
+      try {
+        const res = await codeUpload(post);
+        if (res.status === 200) {
+          toast.success("Your code has been successfully uploaded. Great job!");
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   };
 
