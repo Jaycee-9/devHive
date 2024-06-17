@@ -33,6 +33,9 @@ const initialPost = {
 function AddCode({ handleClickOpen, handleClose, dialogOpen }) {
   const [post, setPost] = useState(initialPost);
   const [file, setFile] = useState("");
+  const [formTitle, setFormTitle] = useState(true);
+  const [formCaption, setFormCaption] = useState(true);
+  const [formRepoLink, setFormRepoLink] = useState(true);
   const { user } = useData();
 
   useEffect(() => {
@@ -55,17 +58,23 @@ function AddCode({ handleClickOpen, handleClose, dialogOpen }) {
 
   const handlePostInput = (evt) => {
     setPost({ ...post, [evt.target.name]: evt.target.value });
+    setFormTitle(true);
+    setFormCaption(true);
+    setFormRepoLink(true);
   };
 
   const validate = () => {
     if (post.title.length === 0) {
       toast.warn("Oops! It looks like you forgot to give your code a title");
+      setFormTitle(false);
       return false;
     } else if (post.caption.length === 0) {
       toast.warn("Uh-oh! It seems you missed adding a caption.");
+      setFormCaption(false);
       return false;
     } else if (post.repo.length === 0) {
       toast.warn("Looks like we’re missing the repository link");
+      setFormRepoLink(false);
       return false;
     }
     return true;
@@ -111,61 +120,108 @@ function AddCode({ handleClickOpen, handleClose, dialogOpen }) {
             onSubmit={submitForm}
             className="bg-white p-8 rounded-lg shadow-md max-w-xl mx-auto"
           >
-            <div className="mb-5">
-              <label className="block text-gray-700 font-medium mb-2">
-                Title *
-              </label>
-              <input
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                type="text"
-                name="title"
-                value={post.title}
-                onChange={handlePostInput}
-                placeholder="Enter the title for your code"
-              />
-            </div>
-            <div className="mb-5">
-              <label className="block text-gray-700 font-medium mb-2">
-                Caption *
-              </label>
-              <textarea
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 h-24"
-                name="caption"
-                value={post.caption}
-                onChange={handlePostInput}
-                placeholder="Enter the description for your code"
-              />
-            </div>
+            {formTitle ? (
+              <div className="mb-5">
+                <label className="block text-gray-700 font-medium mb-2">
+                  Title *
+                </label>
+                <input
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none "
+                  type="text"
+                  name="title"
+                  value={post.title}
+                  onChange={handlePostInput}
+                  placeholder="Enter the title for your code"
+                />
+              </div>
+            ) : (
+              <div className="mb-5">
+                <label className="block text-gray-700 font-medium mb-2">
+                  Title *
+                </label>
+                <input
+                  className="w-full px-4 py-2 border-2  border-red-500 rounded-md focus:outline-none"
+                  type="text"
+                  name="title"
+                  value={post.title}
+                  onChange={handlePostInput}
+                  placeholder="Enter the title for your code"
+                />
+              </div>
+            )}
+            {formCaption ? (
+              <div className="mb-5">
+                <label className="block text-gray-700 font-medium mb-2">
+                  Caption *
+                </label>
+                <textarea
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none  h-24"
+                  name="caption"
+                  value={post.caption}
+                  onChange={handlePostInput}
+                  placeholder="Enter the description for your code"
+                />
+              </div>
+            ) : (
+              <div className="mb-5">
+                <label className="block text-gray-700 font-medium mb-2">
+                  Caption *
+                </label>
+                <textarea
+                  className="w-full px-4 py-2 border-2 border-red-500 rounded-md focus:outline-none  h-24"
+                  name="caption"
+                  value={post.caption}
+                  onChange={handlePostInput}
+                  placeholder="Enter the description for your code"
+                />
+              </div>
+            )}
             <div className="mb-5">
               <label className="block text-gray-700 font-medium mb-2">
                 Media
               </label>
               <input
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none "
                 type="file"
                 onChange={(evt) => setFile(evt.target.files[0])}
                 placeholder="Enter the repository link"
               />
             </div>
-            <div className="mb-5">
-              <label className="block text-gray-700 font-medium mb-2">
-                Repository Link *
-              </label>
-              <input
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                type="text"
-                name="repo"
-                value={post.repo}
-                onChange={handlePostInput}
-                placeholder="Enter the repository link"
-              />
-            </div>
+            {formRepoLink ? (
+              <div className="mb-5">
+                <label className="block text-gray-700 font-medium mb-2">
+                  Repository Link *
+                </label>
+                <input
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none "
+                  type="text"
+                  name="repo"
+                  value={post.repo}
+                  onChange={handlePostInput}
+                  placeholder="Enter the repository link"
+                />
+              </div>
+            ) : (
+              <div className="mb-5">
+                <label className="block text-gray-700 font-medium mb-2">
+                  Repository Link *
+                </label>
+                <input
+                  className="w-full px-4 py-2 border-2 border-red-500 rounded-md focus:outline-none "
+                  type="text"
+                  name="repo"
+                  value={post.repo}
+                  onChange={handlePostInput}
+                  placeholder="Enter the repository link"
+                />
+              </div>
+            )}
             <div className="mb-5">
               <label className="block text-gray-700 font-medium mb-2">
                 Deployed Link
               </label>
               <input
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none "
                 type="text"
                 name="deployedLinked"
                 value={post.deployedLinked}
@@ -178,7 +234,7 @@ function AddCode({ handleClickOpen, handleClose, dialogOpen }) {
                 Tags
               </label>
               <input
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none "
                 type="text"
                 name="tags"
                 value={post.tags}
@@ -189,7 +245,7 @@ function AddCode({ handleClickOpen, handleClose, dialogOpen }) {
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="px-6 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="px-6 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 focus:outline-none "
                 autoFocus
               >
                 Post
