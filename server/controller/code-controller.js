@@ -23,3 +23,12 @@ export const uploadCode = async (req, res) => {
     res.status(500).json({ msg: "error while saving the post" });
   }
 };
+
+export const getAllCodes = async (req, res) => {
+  try {
+    const posts = await CodePost.find({});
+    return res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ msg: "error while fetching posts" });
+  }
+};
