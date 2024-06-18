@@ -20,6 +20,15 @@ export const userLogin = (credentials) => {
   }
 };
 
+export const uploadFile = (file) => {
+  try {
+    const response = axios.post(`${URL}/upload`, file);
+    return response;
+  } catch (error) {
+    console.log(`Error : ${error}`);
+  }
+};
+
 export const codeUpload = (codeDetails) => {
   try {
     const response = axios.post(`${URL}/add_code`, codeDetails);

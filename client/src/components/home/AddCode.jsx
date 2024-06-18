@@ -2,7 +2,7 @@
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { codeUpload } from "@/service/api";
+import { codeUpload, uploadFile } from "@/service/api";
 import { useEffect, useState } from "react";
 import { useData } from "@/utils/context";
 import { toast } from "react-toastify";
@@ -39,14 +39,15 @@ function AddCode({ handleClickOpen, handleClose, dialogOpen }) {
   const { user } = useData();
 
   useEffect(() => {
-    const getImage = () => {
+    const getImage = async () => {
       if (file) {
         const data = new FormData();
         data.append("name", file.name);
         data.append("file", file);
 
         //API call
-        post.media = ""; // todo
+        const res = await uploadFile(data);
+        post.media = res.data;
       } else {
         post.media = "/images/png/Explore_repository.png";
       }
@@ -88,6 +89,7 @@ function AddCode({ handleClickOpen, handleClose, dialogOpen }) {
         const res = await codeUpload(post);
         if (res.status === 200) {
           toast.success("Your code has been successfully uploaded. Great job!");
+          setPost(initialPost);
         }
       } catch (error) {
         console.log(error.message);
