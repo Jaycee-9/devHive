@@ -1,37 +1,34 @@
 import { addEllipsis } from "@/utils/elipsis";
-
-const posts = [
-  {
-    title: "devHive",
-    caption:
-      "devHive is a platform designed to support amateur developers in enhancing their skills by facilitating contributions to existing projects and discovering new projects to work on. Whether you're a novice or an experienced coder, devHive is here to foster a collaborative environment where developers can grow together.",
-    media: "/images/png/Explore_repository.png",
-    user: "jaycee",
-    userImage: "/images/png/Explore_coder.png",
-    kudos: "12",
-    repo: "https://github.com/Jaycee-9/devHive",
-    deployedLinked: "",
-    openDiscussion: [
-      {
-        user: "pepsi",
-        comment: "bhaukal chiz bana diye bhai ji aaptoh",
-      },
-      {
-        user: "ramlal",
-        comment: "je ka dekh lio..",
-      },
-    ],
-  },
-];
+import { useState, useEffect } from "react";
+import { getAllCode } from "@/service/api";
 
 function Content() {
+  const [codes, setCodes] = useState([]);
+  const [kudosState, setKudosState] = useState({});
+
+  useEffect(() => {
+    const fetchCodes = async () => {
+      const allCodes = await getAllCode();
+      setCodes(allCodes.data);
+    };
+
+    fetchCodes();
+  }, []);
+
+  const handleLike = (postId) => {
+    setKudosState((prevKudosState) => ({
+      ...prevKudosState,
+      [postId]: !prevKudosState[postId],
+    }));
+  };
+
   return (
     <div className="flex flex-wrap max-w-[1000px] mx-auto">
-      {posts.map((post, index) => {
+      {codes.map((post) => {
         return (
           <div
-            key={index}
-            className="max-w-[450px] bg-white border-[1px] border-gray-200 shadow-lg rounded-3xl p-3 mx-3 my-7 "
+            key={post._id}
+            className="max-w-[450px] w-full bg-white border-[1px] border-gray-200 shadow-2xl rounded-3xl p-3 mx-3 my-7 "
           >
             <div className="flex">
               <img
@@ -46,13 +43,51 @@ function Content() {
                 </a>
               </div>
             </div>
-            <img
-              src={post.media}
-              alt="media"
-              className="h-[100px] max-w-[400px] w-full object-contain"
-            />
-            <h1 className="font-semibold capitalize">{post.title}</h1>
-            <p className="">{addEllipsis(post.caption, 110)}</p>
+            <div className="flex items-center py-4">
+              <img
+                src={post.media}
+                alt="media"
+                className="h-[100px] w-[200px] rounded-[12px] object-contain"
+              />
+              <div className="px-4">
+                <h1 className="font-semibold capitalize">{post.title}</h1>
+                <p className="">{addEllipsis(post.caption, 110)}</p>
+              </div>
+            </div>
+            <div className="flex items-center justify-around">
+              <div
+                onClick={() => handleLike(post._id)}
+                className="flex items-center cursor-pointer"
+              >
+                {kudosState[post._id] ? (
+                  <img
+                    src="/images/png/explore_content_clapClicked.png"
+                    alt="kudos"
+                    className="w-[24px]"
+                  />
+                ) : (
+                  <img
+                    src="/images/png/explore_content_clap_unClicked.png"
+                    alt="kudos"
+                    className="w-[24px]"
+                  />
+                )}
+                <p>{post.kudos} kudos</p>
+              </div>
+              <div className="flex items-center cursor-pointer py-5">
+                <img
+                  src="/images/png/explore_content_discussion.png"
+                  alt="discussion"
+                  className="w-[24px]"
+                />
+                <p>
+                  {post.openDiscussion.map((chat) => {
+                    return <h1>{chat.user}</h1>;
+                  })}
+                  Discussions
+                </p>
+              </div>
+            </div>
           </div>
         );
       })}

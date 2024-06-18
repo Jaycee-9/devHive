@@ -45,11 +45,11 @@ function AddCode({ handleClickOpen, handleClose, dialogOpen }) {
         data.append("name", file.name);
         data.append("file", file);
 
-        //API call
         const res = await uploadFile(data);
         post.media = res.data;
       } else {
         post.media = "/images/png/Explore_repository.png";
+        post.userImage = "/images/png/Explore_coder.png";
       }
       post.user = user.username;
     };

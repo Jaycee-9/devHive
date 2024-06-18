@@ -37,3 +37,12 @@ export const codeUpload = (codeDetails) => {
     console.log(`Error : ${error}`);
   }
 };
+
+export const getAllCode = () => {
+  try {
+    const response = axios.get(`${URL}/codes`);
+    return response;
+  } catch (error) {
+    console.log(`Error : ${error}`);
+  }
+};
