@@ -32,3 +32,13 @@ export const getAllCodes = async (req, res) => {
     res.status(500).json({ msg: "error while fetching posts" });
   }
 };
+
+export const getSingleCode = async (req, res) => {
+  try {
+    const codeId = req.query.id;
+    const codeDetails = await CodePost.findById({ _id: codeId });
+    res.status(200).json(codeDetails);
+  } catch (error) {
+    res.status(500).json({ msg: "error while fetching code details" });
+  }
+};
