@@ -46,3 +46,14 @@ export const getAllCode = () => {
     console.log(`Error : ${error}`);
   }
 };
+
+export const getSingleCode = (id) => {
+  try {
+    const response = axios.get(`${URL}/code`, {
+      params: { id },
+    });
+    return response;
+  } catch (error) {
+    console.log(`Error : ${error}`);
+  }
+};
