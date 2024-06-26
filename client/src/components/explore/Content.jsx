@@ -98,7 +98,13 @@ function Content() {
                   )}
                   <p>{post.kudos} kudos</p>
                 </div>
-                <div className="flex items-center cursor-pointer py-5">
+                <div
+                  onClick={() => {
+                    handleClickOpen();
+                    handleDetailedView(post._id);
+                  }}
+                  className="flex items-center cursor-pointer py-5"
+                >
                   <img
                     src="/images/png/explore_content_discussion.png"
                     alt="discussion"
@@ -107,7 +113,7 @@ function Content() {
                   {post.openDiscussion.map((chat, index) => {
                     return <h1 key={index}>{chat.user}</h1>;
                   })}
-                  <p> Discussions</p>
+                  <p>Discussions</p>
                 </div>
               </div>
             </div>
