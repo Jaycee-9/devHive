@@ -9,7 +9,7 @@ function AppBar({ code, handleClose }) {
   };
 
   return (
-    <div className="mt-4  rounded-t-xl bg-gradient-to-r from-blue-500 to-indigo-500 max-w-[1200px] mx-auto w-full shadow-lg">
+    <div className="rounded-t-xl bg-gradient-to-r from-blue-500 to-indigo-500  mx-auto w-full shadow-lg">
       <div className="p-4 text-white flex items-center justify-between">
         <div className="relative flex ">
           <img

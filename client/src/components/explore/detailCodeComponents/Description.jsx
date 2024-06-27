@@ -1,13 +1,13 @@
 function Description({ code }) {
   return (
-    <div className="max-w-[1200px] w-full mx-auto ">
-      <div className="flex items-center bg-white  shadow-lg overflow-hidden">
+    <div className="w-full mx-auto ">
+      <div className="flex items-center bg-white   overflow-hidden">
         <img
           src={code.media}
           alt="media"
-          className="w-1/2 h-[500px]  object-cover"
+          className="w-1/2 h-[350px]  object-cover"
         />
-        <div className="w-1/2 relative h-[500px] p-8 flex flex-col justify-center ">
+        <div className="w-1/2 relative h-[350px] p-8 flex flex-col justify-center ">
           <h1 className="text-4xl font-bold mb-4 absolute top-1">
             {code.title}
           </h1>
@@ -17,7 +17,7 @@ function Description({ code }) {
           >
             {code.repo}
           </a>
-          <h2 className="text-2xl font-medium relative top-10 overflow-y-auto">
+          <h2 className="text-xl pb-3 font-medium relative top-10 overflow-y-auto">
             {code.caption}
           </h2>
         </div>
