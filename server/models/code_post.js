@@ -20,7 +20,7 @@ const codePostSchema = mongoose.Schema({
     type: String,
   },
   kudos: {
-    type: String,
+    type: Number,
   },
   repo: {
     type: String,

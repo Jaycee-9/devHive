@@ -58,6 +58,7 @@ export const userLogin = async (req, res) => {
         refreshToken: refreshToken,
         username: user.username,
         email: user.email,
+        _id: user._id,
       });
     } else {
       res.status(400).json({ msg: "invalid credentials" });
