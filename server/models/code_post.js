@@ -12,6 +12,10 @@ const codePostSchema = mongoose.Schema({
   media: {
     type: String,
   },
+  userId: {
+    type: String,
+    required: true,
+  },
   user: {
     type: String,
     required: true,
@@ -32,19 +36,13 @@ const codePostSchema = mongoose.Schema({
   deployedLinked: {
     type: String,
   },
-  openDiscussion: {
-    type: [
-      {
-        user: {
-          type: String,
-        },
-        comment: {
-          type: String,
-        },
-      },
-    ],
-    default: [],
-  },
+  discussions: [
+    {
+      username: String,
+      discussion: String,
+      createdAt: { type: Date, default: Date.now },
+    },
+  ],
   createDate: { type: Date, default: Date.now },
 });
 

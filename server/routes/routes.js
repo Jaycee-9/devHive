@@ -4,6 +4,7 @@ import {
   uploadCode,
   getAllCodes,
   getSingleCode,
+  uploadDiscussion,
 } from "../controller/code-controller.js";
 import { uploadFile } from "../controller/image-controller.js";
 import { getImage } from "../controller/image-controller.js";
@@ -16,6 +17,8 @@ router.post("/signup", userSignup);
 router.post("/login", userLogin);
 router.post("/add_code", uploadCode);
 router.post("/upload", upload.single("file"), uploadFile);
+
+router.patch("/upload_discussion", uploadDiscussion);
 
 router.get("/file/:filename", getImage);
 router.get("/codes", getAllCodes);
