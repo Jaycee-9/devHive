@@ -52,6 +52,7 @@ function AddCode({ handleClickOpen, handleClose, dialogOpen }) {
         post.userImage = "/images/png/Explore_coder.png";
       }
       post.user = user.username;
+      post.id = user._id;
     };
 
     getImage();

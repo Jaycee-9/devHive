@@ -1,4 +1,14 @@
 function Description({ code }) {
+  const formatISTDate = (dateString) => {
+    const options = {
+      timeZone: "Asia/Kolkata",
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+    };
+
+    return new Date(dateString).toLocaleString("en-IN", options);
+  };
   return (
     <div className="w-full mx-auto ">
       <div className="flex items-center bg-white   overflow-hidden">
@@ -17,6 +27,10 @@ function Description({ code }) {
           >
             {code.repo}
           </a>
+
+          <p className="absolute top-3 right-3">
+            {formatISTDate(code.createDate)}
+          </p>
           <h2 className="text-xl pb-3 font-medium relative top-10 overflow-y-auto">
             {code.caption}
           </h2>

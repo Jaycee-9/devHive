@@ -1,26 +1,31 @@
 import { useEffect, useState } from "react";
 import DisplayScreen from "./DisplayScreen";
 import { useData } from "@/utils/context";
+import { uploadDiscussion } from "@/service/api";
+
 const intialValue = {
   _id: "",
   user: "",
   comment: "",
+  codeId: "",
 };
 function Reaction({ code }) {
+  console.log(code);
   const [displayScreen, setDisplayScreen] = useState(false);
   const [comment, setComment] = useState(intialValue);
   const [commentTitle, setCommentTitle] = useState(true);
   const { user } = useData();
 
   useEffect(() => {
-    if (user && user.username) {
+    if (user && user.username && code) {
       setComment((prevComment) => ({
         ...prevComment,
         user: user.username,
         _id: user._id,
+        codeId: code._id,
       }));
     }
-  }, [user]);
+  }, [user, code]);
 
   const Validate = () => {
     if (comment.comment.length === 0) {
@@ -31,10 +36,11 @@ function Reaction({ code }) {
     return true;
   };
 
-  const postComment = () => {
+  const postComment = async () => {
     if (Validate()) {
       try {
-        console.log(comment);
+        const res = await uploadDiscussion(comment);
+        console.log(res);
       } catch (error) {
         console.log(error);
       }
@@ -75,7 +81,7 @@ function Reaction({ code }) {
             onClick={postComment}
             className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            Discuss
+            Post
           </button>
         </div>
         <div className="mt-4 flex items-center justify-center text-gray-700 text-sm">
@@ -89,7 +95,7 @@ function Reaction({ code }) {
             </button>
           </div>
           <div className="flex items-center space-x-2 mx-3">
-            <p>{code.openDiscussion?.length || 0}</p>
+            <p>{code.discussions?.length || 0}</p>
             <button
               onClick={handleDisplayScreen}
               className="bg-blue-500 text-white px-3 py-1 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"

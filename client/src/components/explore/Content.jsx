@@ -110,7 +110,7 @@ function Content() {
                     alt="discussion"
                     className="w-[24px]"
                   />
-                  {post.openDiscussion.map((chat, index) => {
+                  {post.openDiscussion?.map((chat, index) => {
                     return <h1 key={index}>{chat.user}</h1>;
                   })}
                   <p>Discussions</p>

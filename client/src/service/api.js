@@ -57,3 +57,12 @@ export const getSingleCode = (id) => {
     console.log(`Error : ${error}`);
   }
 };
+
+export const uploadDiscussion = (discussion) => {
+  try {
+    const response = axios.patch(`${URL}/upload_discussion`, discussion);
+    return response;
+  } catch (error) {
+    console.log(`Error : ${error}`);
+  }
+};
