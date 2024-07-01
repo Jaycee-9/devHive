@@ -10,7 +10,6 @@ const intialValue = {
   codeId: "",
 };
 function Reaction({ code }) {
-  console.log(code);
   const [displayScreen, setDisplayScreen] = useState(false);
   const [comment, setComment] = useState(intialValue);
   const [commentTitle, setCommentTitle] = useState(true);
