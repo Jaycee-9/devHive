@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DisplayScreen from "./DisplayScreen";
 import { useData } from "@/utils/context";
-import { uploadDiscussion } from "@/service/api";
+import { uploadDiscussion, uploadKudos } from "@/service/api";
 import { toast } from "react-toastify";
 
 const initialValue = {
@@ -49,8 +49,8 @@ function Reaction({ code }) {
     }
   };
 
-  const updateKudos = (id, userId) => {
-    console.log(id, userId);
+  const updateKudos = async (id, userId) => {
+    await uploadKudos(id, userId);
   };
   const handleDisplayScreen = () => {
     setDisplayScreen((prevState) => !prevState);
@@ -93,10 +93,10 @@ function Reaction({ code }) {
         </div>
         <div className="mt-4 flex items-center justify-center text-gray-700 text-sm">
           <div className="flex items-center space-x-2 mx-3">
-            <p>{code?.kudos ? code.kudos : 0}</p>
+            <p>{code.likes?.length || 0}</p>
             <button
               onClick={() => {
-                handleDisplayScreen, updateKudos(code._id, code.userId);
+                handleDisplayScreen(), updateKudos(code._id, code.userId);
               }}
               className="bg-green-500 text-white px-3 py-1 rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
             >

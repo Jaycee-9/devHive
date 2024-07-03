@@ -38,6 +38,8 @@ function Content() {
     }));
   };
 
+  console.log(codes);
+
   return (
     <>
       <div className=" max-w-[1000px] mx-auto">
@@ -102,7 +104,7 @@ function Content() {
                         className="w-[24px]"
                       />
                     )}
-                    <p>{post.kudos} kudos</p>
+                    <p>{post.likes?.length} kudos</p>
                   </div>
                   <div
                     onClick={() => {

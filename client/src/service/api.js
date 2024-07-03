@@ -66,3 +66,15 @@ export const uploadDiscussion = (discussion) => {
     console.log(`Error : ${error}`);
   }
 };
+
+export const uploadKudos = async (codeId, userId) => {
+  try {
+    const response = await axios.patch(`${URL}/upload_kudos`, {
+      codeId,
+      userId,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(`Error : ${error}`);
+  }
+};
