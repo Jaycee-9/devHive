@@ -1,7 +1,10 @@
 import Discussion from "./Discussion";
+import Kudos from "./Kudos";
 function DisplayScreen({ displayScreen, code }) {
   return (
-    <div>{displayScreen ? <h1>kudos</h1> : <Discussion code={code} />}</div>
+    <div>
+      {displayScreen ? <Kudos code={code} /> : <Discussion code={code} />}
+    </div>
   );
 }
 
