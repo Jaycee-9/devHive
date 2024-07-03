@@ -49,9 +49,6 @@ function Reaction({ code }) {
     }
   };
 
-  const updateKudos = async (id, userId) => {
-    await uploadKudos(id, userId);
-  };
   const handleDisplayScreen = () => {
     setDisplayScreen((prevState) => !prevState);
   };
@@ -96,7 +93,7 @@ function Reaction({ code }) {
             <p>{code.likes?.length || 0}</p>
             <button
               onClick={() => {
-                handleDisplayScreen(), updateKudos(code._id, code.userId);
+                handleDisplayScreen();
               }}
               className="bg-green-500 text-white px-3 py-1 rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
             >

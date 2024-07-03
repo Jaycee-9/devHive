@@ -2,12 +2,16 @@ import { addEllipsis } from "@/utils/elipsis";
 import { useState, useEffect } from "react";
 import { getAllCode, getSingleCode } from "@/service/api";
 import DetailedCode from "./DetailedCode";
-
+import { useData } from "@/utils/context";
+import { uploadKudos } from "@/service/api";
 function Content() {
   const [codes, setCodes] = useState([]);
   const [code, setCode] = useState([]);
-  const [kudosState, setKudosState] = useState({});
+  const [kudosState, setKudosState] = useState(false);
   const [open, setOpen] = useState(false);
+  const { user } = useData();
+
+  const userId = user._id;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,14 +35,17 @@ function Content() {
     setCode(singleCode.data);
   };
 
-  const handleLike = (postId) => {
+  const changeBtnState = (postId) => {
     setKudosState((prevKudosState) => ({
       ...prevKudosState,
       [postId]: !prevKudosState[postId],
     }));
   };
 
-  console.log(codes);
+  const uploadLike = async (postId) => {
+    const clicked = await uploadKudos(postId, userId);
+    console.log(clicked);
+  };
 
   return (
     <>
@@ -74,7 +81,7 @@ function Content() {
                   <img
                     src={post.media}
                     alt="media"
-                    className=" w-1/2 rounded-[12px]"
+                    className="w-1/2  rounded-[12px]"
                   />
                   <div className="px-4">
                     <h1 className="font-semibold text-[28px] capitalize">
@@ -88,7 +95,7 @@ function Content() {
                 <div className="relative flex items-center justify-around border-t-[1px] border-transparent">
                   <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-blue-100 via-blue-800 to-blue-300"></div>
                   <div
-                    onClick={() => handleLike(post._id)}
+                    onClick={() => changeBtnState(post._id)}
                     className="flex items-center cursor-pointer"
                   >
                     {kudosState[post._id] ? (
@@ -102,6 +109,7 @@ function Content() {
                         src="/images/png/explore_content_clap_unClicked.png"
                         alt="kudos"
                         className="w-[24px]"
+                        onClick={() => uploadLike(post._id)}
                       />
                     )}
                     <p>{post.likes?.length} kudos</p>

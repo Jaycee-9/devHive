@@ -73,7 +73,7 @@ export const uploadKudos = async (codeId, userId) => {
       codeId,
       userId,
     });
-    return response.data;
+    return response;
   } catch (error) {
     console.log(`Error : ${error}`);
   }

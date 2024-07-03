@@ -12,11 +12,7 @@ function Description({ code }) {
   return (
     <div className="w-full mx-auto ">
       <div className="flex items-center bg-white   overflow-hidden">
-        <img
-          src={code.media}
-          alt="media"
-          className="w-1/2 h-[350px]  object-cover"
-        />
+        <img src={code.media} alt="media" className="w-1/2   object-cover" />
         <div className="w-1/2 relative h-[350px] p-8 flex flex-col justify-center ">
           <h1 className="text-4xl font-bold mb-4 absolute top-1">
             {code.title}
