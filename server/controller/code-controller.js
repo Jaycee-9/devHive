@@ -1,5 +1,6 @@
 import CodePost from "../models/code_post.js";
 import User from "../models/user.js";
+
 export const uploadCode = async (req, res) => {
   try {
     const userCodePost = {
@@ -73,7 +74,34 @@ export const uploadDiscussion = async (req, res) => {
 
     return res.status(200).json({ msg: "Discussion added successfully." });
   } catch (error) {
-    console.error(error);
+    return res.status(500).json({ msg: "Server error." });
+  }
+};
+
+export const uploadKudos = async (req, res) => {
+  const codeId = req.body.codeId;
+  const userId = req.body.userId;
+
+  const user = await User.findOne({ _id: userId });
+  const code = await CodePost.findOne({ _id: codeId });
+
+  if (!user) {
+    return res.status(409).json({ msg: "User not found." });
+  }
+
+  if (!code) {
+    return res.status(409).json({ msg: "CodePost not found." });
+  }
+
+  const kudo = {
+    username: user.username,
+    userImage: user.userImage,
+  };
+
+  try {
+    await CodePost.updateOne({ _id: codeId }, { $push: { likes: kudo } });
+    return res.status(200).json({ msg: "Kudos added successfully." });
+  } catch (error) {
     return res.status(500).json({ msg: "Server error." });
   }
 };

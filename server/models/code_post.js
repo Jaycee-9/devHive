@@ -23,9 +23,12 @@ const codePostSchema = mongoose.Schema({
   userImage: {
     type: String,
   },
-  kudos: {
-    type: Number,
-  },
+  likes: [
+    {
+      username: String,
+      createdAt: { type: Date, default: Date.now },
+    },
+  ],
   repo: {
     type: String,
     required: true,
