@@ -1,9 +1,9 @@
 import { addEllipsis } from "@/utils/elipsis";
 import { useState, useEffect } from "react";
-import { getAllCode, getSingleCode } from "@/service/api";
+import { getAllCode, getSingleCode, uploadKudos } from "@/service/api";
 import DetailedCode from "./DetailedCode";
 import { useData } from "@/utils/context";
-import { uploadKudos } from "@/service/api";
+
 function Content() {
   const [codes, setCodes] = useState([]);
   const [code, setCode] = useState([]);
@@ -43,8 +43,7 @@ function Content() {
   };
 
   const uploadLike = async (postId) => {
-    const clicked = await uploadKudos(postId, userId);
-    console.log(clicked);
+    await uploadKudos(postId, userId);
   };
 
   return (
@@ -99,20 +98,30 @@ function Content() {
                     className="flex items-center cursor-pointer"
                   >
                     {kudosState[post._id] ? (
-                      <img
-                        src="/images/png/explore_content_clapClicked.png"
-                        alt="kudos"
-                        className="w-[24px]"
-                      />
-                    ) : (
-                      <img
-                        src="/images/png/explore_content_clap_unClicked.png"
-                        alt="kudos"
-                        className="w-[24px]"
+                      <div
+                        className="flex items-center"
                         onClick={() => uploadLike(post._id)}
-                      />
+                      >
+                        <img
+                          src="/images/png/explore_content_clapClicked.png"
+                          alt="kudos"
+                          className="w-[24px]"
+                        />
+                        <p>{post.likes?.length} kudos</p>
+                      </div>
+                    ) : (
+                      <div
+                        className="flex items-center"
+                        onClick={() => uploadLike(post._id)}
+                      >
+                        <img
+                          src="/images/png/explore_content_clap_unClicked.png"
+                          alt="kudos"
+                          className="w-[24px]"
+                        />
+                        <p>{post.likes?.length} kudos</p>
+                      </div>
                     )}
-                    <p>{post.likes?.length} kudos</p>
                   </div>
                   <div
                     onClick={() => {
