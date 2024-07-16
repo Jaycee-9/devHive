@@ -67,3 +67,36 @@ export const userLogin = async (req, res) => {
     return res.status(500).json({ msg: "login error" });
   }
 };
+
+export const followRequest = async (req, res) => {
+  const { followUserId, userId } = req.body;
+
+  try {
+    const followUser = await User.findOne({ _id: followUserId });
+    if (!followUser) {
+      return res.status(404).json({ msg: "User to follow not found." });
+    }
+
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      return res.status(404).json({ msg: "Logged-in user not found." });
+    }
+    if (followUser.followers.includes(userId)) {
+      return res
+        .status(400)
+        .json({ msg: "You are already following this user." });
+    }
+
+    // Add the userId to the followUser's followers list
+    followUser.followers.push(user);
+    await followUser.save();
+
+    // Add the followUserId to the user's following list
+    user.followings.push(followUser);
+    await user.save();
+
+    return res.status(200).json({ msg: "Follow request successful." });
+  } catch (error) {
+    return res.status(500).json({ msg: "follow request not send try again" });
+  }
+};

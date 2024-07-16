@@ -19,6 +19,18 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  followers: [
+    {
+      userId: String,
+      username: String,
+    },
+  ],
+  followings: [
+    {
+      userId: String,
+      username: String,
+    },
+  ],
 });
 
 const user = mongoose.model("user", userSchema);

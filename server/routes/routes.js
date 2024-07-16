@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { userSignup, userLogin } from "../controller/user-controller.js";
+import {
+  userSignup,
+  userLogin,
+  followRequest,
+} from "../controller/user-controller.js";
 import {
   uploadCode,
   getAllCodes,
@@ -21,6 +25,8 @@ router.post("/upload", upload.single("file"), uploadFile);
 
 router.patch("/upload_discussion", uploadDiscussion);
 router.patch("/upload_kudos", uploadKudos);
+
+router.patch("/follow", followRequest);
 
 router.get("/file/:filename", getImage);
 router.get("/codes", getAllCodes);
