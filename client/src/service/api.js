@@ -78,3 +78,15 @@ export const uploadKudos = async (codeId, userId) => {
     console.log(`Error : ${error}`);
   }
 };
+
+export const followRequest = async (followUserId, userId) => {
+  try {
+    const response = await axios.patch(`${URL}/follow`, {
+      followUserId,
+      userId,
+    });
+    return response;
+  } catch (error) {
+    console.log(`Error : ${error}`);
+  }
+};

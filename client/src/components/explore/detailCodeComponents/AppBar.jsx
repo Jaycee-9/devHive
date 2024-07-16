@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { Close } from "@mui/icons-material";
+import { followRequest } from "@/service/api";
+import { useData } from "@/utils/context";
 
 function AppBar({ code, handleClose }) {
+  const { user } = useData();
+  console.log(user);
   const [follow, setFollow] = useState(false);
 
-  const handleFollowReq = () => {
+  const handleFollowReq = async (userId) => {
     setFollow((prevState) => !prevState);
+    const res = await followRequest(userId, user._id);
+    console.log(res);
   };
 
   return (
@@ -19,7 +25,7 @@ function AppBar({ code, handleClose }) {
           />
           <h1 className="text-[32px] px-4 font-semibold">{code.user}</h1>
           <button
-            onClick={handleFollowReq}
+            onClick={() => handleFollowReq(code.userId)}
             className={`ml-4 px-4 py-1 rounded-full absolute left-20 top-12 text-white font-medium transition-all duration-300 ${
               follow
                 ? "bg-green-500 hover:bg-green-600"
