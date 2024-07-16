@@ -25,6 +25,7 @@ const codePostSchema = mongoose.Schema({
   },
   likes: [
     {
+      userId: String,
       username: String,
       createdAt: { type: Date, default: Date.now },
     },

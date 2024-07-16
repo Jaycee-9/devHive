@@ -79,29 +79,50 @@ export const uploadDiscussion = async (req, res) => {
 };
 
 export const uploadKudos = async (req, res) => {
-  const codeId = req.body.codeId;
-  const userId = req.body.userId;
-
-  const user = await User.findOne({ _id: userId });
-  const code = await CodePost.findOne({ _id: codeId });
-
-  if (!user) {
-    return res.status(409).json({ msg: "User not found." });
-  }
-
-  if (!code) {
-    return res.status(409).json({ msg: "CodePost not found." });
-  }
-
-  const kudo = {
-    username: user.username,
-    userImage: user.userImage,
-  };
+  const { codeId, userId } = req.body;
 
   try {
-    await CodePost.updateOne({ _id: codeId }, { $push: { likes: kudo } });
-    return res.status(200).json({ msg: "Kudos added successfully." });
+    const user = await User.findById(userId);
+    const code = await CodePost.findById(codeId);
+
+    if (!user) {
+      return res.status(409).json({ msg: "User not found." });
+    }
+
+    if (!code) {
+      return res.status(409).json({ msg: "CodePost not found." });
+    }
+
+    // Check if the user has already liked the post
+    const alreadyLiked = code.likes.some(
+      (like) => like.userId.toString() === userId
+    );
+
+    if (alreadyLiked) {
+      // If user already liked the post, remove the like
+      await CodePost.updateOne(
+        { _id: codeId },
+        { $pull: { likes: { userId: userId } } }
+      );
+      const updatedCode = await CodePost.findById(codeId);
+      return res
+        .status(200)
+        .json({ msg: "Like removed successfully.", likes: updatedCode.likes });
+    } else {
+      // If user has not liked the post, add the like
+      const kudo = {
+        userId: user._id,
+        username: user.username,
+        userImage: user.userImage,
+      };
+
+      await CodePost.updateOne({ _id: codeId }, { $push: { likes: kudo } });
+      const updatedCode = await CodePost.findById(codeId);
+      return res
+        .status(200)
+        .json({ msg: "Like added successfully.", likes: updatedCode.likes });
+    }
   } catch (error) {
-    return res.status(500).json({ msg: "Server error." });
+    return res.status(500).json({ msg: "Server error.", error: error.message });
   }
 };
