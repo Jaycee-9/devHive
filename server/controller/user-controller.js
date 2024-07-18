@@ -81,21 +81,32 @@ export const followRequest = async (req, res) => {
     if (!user) {
       return res.status(404).json({ msg: "Logged-in user not found." });
     }
-    if (followUser.followers.includes(userId)) {
-      return res
-        .status(400)
-        .json({ msg: "You are already following this user." });
+
+    const alreadyFollow = followUser.followers.some(
+      (follower) => follower._id.toString() === userId
+    );
+
+    if (alreadyFollow) {
+      await User.updateOne(
+        { _id: followUserId },
+        { $pull: { followers: { _id: userId } } }
+      );
+      await User.updateOne(
+        { _id: userId },
+        { $pull: { followings: { _id: followUserId } } }
+      );
+      return res.status(200).json({ msg: "Unfollow request successful." });
+    } else {
+      // Add the userId to the followUser's followers list
+      followUser.followers.push(user);
+      await followUser.save();
+
+      // Add the followUserId to the user's following list
+      user.followings.push(followUser);
+      await user.save();
+
+      return res.status(200).json({ msg: "Follow request successful." });
     }
-
-    // Add the userId to the followUser's followers list
-    followUser.followers.push(user);
-    await followUser.save();
-
-    // Add the followUserId to the user's following list
-    user.followings.push(followUser);
-    await user.save();
-
-    return res.status(200).json({ msg: "Follow request successful." });
   } catch (error) {
     return res.status(500).json({ msg: "follow request not send try again" });
   }
