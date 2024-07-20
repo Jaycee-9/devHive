@@ -90,3 +90,16 @@ export const followRequest = async (followUserId, userId) => {
     console.log(`Error : ${error}`);
   }
 };
+
+export const userDetails = async (userId) => {
+  try {
+    const response = await axios.get(`${URL}/user_details`, {
+      params: { userId },
+    });
+
+    return response;
+  } catch (error) {
+    console.log(`Error: ${error.message}`);
+    throw error;
+  }
+};

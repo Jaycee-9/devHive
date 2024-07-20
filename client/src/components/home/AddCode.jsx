@@ -12,21 +12,10 @@ const initialPost = {
   caption: "",
   media: "",
   user: "",
-  userImage: "",
-  kudos: "",
   repo: "",
   tags: "",
   deployedLinked: "",
-  openDiscussion: [
-    {
-      user: "",
-      comment: "",
-    },
-    {
-      user: "",
-      comment: "",
-    },
-  ],
+
   createDate: new Date(),
 };
 
