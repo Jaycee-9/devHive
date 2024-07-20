@@ -3,6 +3,7 @@ import {
   userSignup,
   userLogin,
   followRequest,
+  getUserDetails,
 } from "../controller/user-controller.js";
 import {
   uploadCode,
@@ -31,4 +32,6 @@ router.patch("/follow", followRequest);
 router.get("/file/:filename", getImage);
 router.get("/codes", getAllCodes);
 router.get("/code", getSingleCode);
+
+router.get("/user_details", getUserDetails);
 export default router;

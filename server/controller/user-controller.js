@@ -111,3 +111,13 @@ export const followRequest = async (req, res) => {
     return res.status(500).json({ msg: "follow request not send try again" });
   }
 };
+
+export const getUserDetails = async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    const userDetails = await User.findById({ _id: userId });
+    return res.status(200).json(userDetails);
+  } catch (error) {
+    res.status(500).json({ msg: "error while fetching user details" });
+  }
+};
