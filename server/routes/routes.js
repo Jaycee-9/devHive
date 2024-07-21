@@ -11,6 +11,7 @@ import {
   getSingleCode,
   uploadDiscussion,
   uploadKudos,
+  getUserPosts,
 } from "../controller/code-controller.js";
 import { uploadFile } from "../controller/image-controller.js";
 import { getImage } from "../controller/image-controller.js";
@@ -26,12 +27,12 @@ router.post("/upload", upload.single("file"), uploadFile);
 
 router.patch("/upload_discussion", uploadDiscussion);
 router.patch("/upload_kudos", uploadKudos);
-
 router.patch("/follow", followRequest);
 
 router.get("/file/:filename", getImage);
 router.get("/codes", getAllCodes);
 router.get("/code", getSingleCode);
-
 router.get("/user_details", getUserDetails);
+router.get("/user_posts", getUserPosts);
+
 export default router;

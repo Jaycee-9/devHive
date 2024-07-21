@@ -1,5 +1,6 @@
 import CodePost from "../models/code_post.js";
 import User from "../models/user.js";
+import { userLogin } from "./user-controller.js";
 
 export const uploadCode = async (req, res) => {
   try {
@@ -124,5 +125,15 @@ export const uploadKudos = async (req, res) => {
     }
   } catch (error) {
     return res.status(500).json({ msg: "Server error.", error: error.message });
+  }
+};
+
+export const getUserPosts = async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    const userPosts = await CodePost.find({ userId: userId });
+    res.status(200).json(userPosts);
+  } catch (error) {
+    res.status(500).json({ msg: "error while fetching user details" });
   }
 };
