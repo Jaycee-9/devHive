@@ -1,19 +1,26 @@
-import { userDetails } from "@/service/api";
+import { userDetails, userPosts } from "@/service/api";
 import { useData } from "@/utils/context";
 import { useEffect, useState } from "react";
+import UserPost from "./userPost";
 
 function UserProfile() {
   const { user } = useData();
   const [userProfile, setUserProfile] = useState({});
   const [content, setContent] = useState("posts");
-
+  const [userPost, setUserPost] = useState([]);
   useEffect(() => {
     const userdata = async () => {
       const data = await userDetails(user._id);
       setUserProfile(data.data);
     };
 
+    const userUploads = async () => {
+      const data = await userPosts(user._id);
+      setUserPost(data.data);
+    };
+
     userdata();
+    userUploads();
   }, []);
 
   const displayContent = (view) => {
@@ -50,7 +57,7 @@ function UserProfile() {
           onClick={() => displayContent("posts")}
         >
           <h1 className="font-bold text-gray-700">Posts</h1>
-          <h1 className="text-gray-700">0</h1>
+          <h1 className="text-gray-700">{userPost.length}</h1>
         </div>
         <div
           className="text-center cursor-pointer"
@@ -80,7 +87,7 @@ function UserProfile() {
           ))}
         </ul>
       )}
-      {content === "posts" && <div>posts list to be shown here</div>}
+      {content === "posts" && <UserPost userPost={userPost} />}
       {content === "followings" && (
         <ul className="space-y-4 p-4 bg-gray-100 rounded-lg shadow-md">
           {userProfile.followings.map((followings, index) => (
