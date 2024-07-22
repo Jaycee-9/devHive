@@ -137,3 +137,13 @@ export const getUserPosts = async (req, res) => {
     res.status(500).json({ msg: "error while fetching user details" });
   }
 };
+
+export const getPostDetails = async (req, res) => {
+  const { postId } = req.query;
+  try {
+    const post = await CodePost.findById({ _id: postId });
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json({ msg: "error while fetching post details" });
+  }
+};

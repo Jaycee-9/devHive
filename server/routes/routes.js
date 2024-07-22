@@ -12,6 +12,7 @@ import {
   uploadDiscussion,
   uploadKudos,
   getUserPosts,
+  getPostDetails,
 } from "../controller/code-controller.js";
 import { uploadFile } from "../controller/image-controller.js";
 import { getImage } from "../controller/image-controller.js";
@@ -34,5 +35,6 @@ router.get("/codes", getAllCodes);
 router.get("/code", getSingleCode);
 router.get("/user_details", getUserDetails);
 router.get("/user_posts", getUserPosts);
+router.get("/post_details", getPostDetails);
 
 export default router;
