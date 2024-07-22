@@ -35,6 +35,7 @@ function UserProfile() {
           alt="user"
           className="w-32 mx-auto rounded-full border-4 border-white"
         />
+        {userProfile._id === user._id ? "" : <button>Follow</button>}
         <div className="absolute w-[30%] mx-auto mt-1 bg-purple-700 left-1/2 transform -translate-x-1/2 rounded-[32px] p-4 shadow-md">
           <h1 className="text-white font-bold text-center text-lg">
             {userProfile.username}

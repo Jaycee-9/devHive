@@ -115,3 +115,16 @@ export const userPosts = async (userId) => {
     throw error;
   }
 };
+
+export const userPostDetails = async (postId) => {
+  try {
+    const response = await axios.get(`${URL}/post_details`, {
+      params: { postId },
+    });
+
+    return response;
+  } catch (error) {
+    console.log(`Error: ${error.message}`);
+    throw error;
+  }
+};
