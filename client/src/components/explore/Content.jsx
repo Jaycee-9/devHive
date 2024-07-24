@@ -19,6 +19,7 @@ function Content() {
 
   const handleClose = () => {
     setOpen(false);
+    setCode([]);
   };
 
   useEffect(() => {
@@ -80,8 +81,9 @@ function Content() {
                   <img
                     src={post.media}
                     alt="media"
-                    className="w-1/2  rounded-[12px]"
+                    className="w-1/2 rounded-[12px] object-cover"
                   />
+
                   <div className="px-4">
                     <h1 className="font-semibold text-[28px] capitalize">
                       {post.title}
