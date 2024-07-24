@@ -11,6 +11,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use("/", router);
+app.get("/", (req, res) => {
+  res.json("server is running");
+});
 
 Promise.all([connectToDb()])
   .then(() => app.listen(PORT, () => console.log(`server is live`)))
