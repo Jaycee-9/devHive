@@ -3,12 +3,16 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import connectToDb from "./database/db.js";
 import router from "./routes/routes.js";
-const PORT = "https://dev-hive-server.vercel.app/" || 8080;
+const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: [""],
+  })
+);
 
 app.use("/", router);
 app.get("/", (req, res) => {
