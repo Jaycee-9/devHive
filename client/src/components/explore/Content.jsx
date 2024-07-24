@@ -81,7 +81,7 @@ function Content() {
                   <img
                     src={post.media}
                     alt="media"
-                    className="w-1/2 rounded-[12px] object-cover"
+                    className="w-[500px] h-[300px] object-fill rounded-[32px]"
                   />
 
                   <div className="px-4">
