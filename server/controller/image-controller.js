@@ -1,7 +1,7 @@
 import grid from "gridfs-stream";
 import mongoose from "mongoose";
 
-const url = "https://dev-hive-server.vercel.app";
+const url = "https://dev-hive-server.vercel.app/";
 
 let gfs, gridfsBucket;
 const conn = mongoose.connection;
