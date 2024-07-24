@@ -8,11 +8,7 @@ const app = express();
 
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  cors({
-    origin: [""],
-  })
-);
+app.use(cors());
 
 app.use("/", router);
 app.get("/", (req, res) => {
@@ -20,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 Promise.all([connectToDb()])
-  .then(() => app.listen(PORT, () => console.log(`server is live`)))
+  .then(() => app.listen(PORT, () => console.log(`server is live on ${PORT}`)))
   .catch((error) => {
     console.error(`MongoDB Atlas Error: ${error}`);
     process.exit();
