@@ -4,13 +4,14 @@ import { userPostDetails } from "@/service/api";
 import { addEllipsis } from "@/utils/elipsis";
 function UserPost({ userPost }) {
   const [open, setOpen] = useState(false);
-  const [code, setCode] = useState({});
+  const [code, setCode] = useState([]);
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setCode([]);
   };
 
   const showUserPostDetails = async (postId) => {

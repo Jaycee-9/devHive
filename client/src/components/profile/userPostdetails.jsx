@@ -6,6 +6,8 @@ import AppBar from "./detailUserPostComponents/AppBar";
 import Description from "./detailUserPostComponents/Description";
 import Reaction from "./detailUserPostComponents/Reaction";
 
+import CircularProgress from "@mui/material/CircularProgress";
+
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -18,11 +20,19 @@ function UserPostDetails({ handleClose, dialogOpen, code }) {
       onClose={handleClose}
       TransitionComponent={Transition}
     >
-      <div className="shadow-lg max-w-[1200px] mx-auto w-full">
-        <AppBar code={code} handleClose={handleClose} />
-        <Description code={code} />
-        <Reaction code={code} />
-      </div>
+      <>
+        {code.length === 0 ? (
+          <div className="flex items-center justify-center w-full h-full">
+            <CircularProgress />
+          </div>
+        ) : (
+          <div className="shadow-lg max-w-[1200px] mx-auto w-full">
+            <AppBar code={code} handleClose={handleClose} />
+            <Description code={code} />
+            <Reaction code={code} />
+          </div>
+        )}
+      </>
     </Dialog>
   );
 }
