@@ -1,6 +1,5 @@
 import CodePost from "../models/code_post.js";
 import User from "../models/user.js";
-import { userLogin } from "./user-controller.js";
 
 export const uploadCode = async (req, res) => {
   try {
