@@ -56,9 +56,9 @@ function Content() {
             return (
               <div
                 key={index}
-                className=" w-full bg-white border-[1px] border-gray-200 shadow-2xl rounded-3xl p-3 mx-3 my-7 "
+                className=" w-full border-[1px] border-gray-200 shadow-2xl rounded-3xl p-3  my-7 "
               >
-                <div className="flex">
+                <div className="flex ">
                   <img
                     src={post.userImage}
                     alt="user"
@@ -67,7 +67,7 @@ function Content() {
                   <div className="relative px-5">
                     <h1>{post.user}</h1>
                     <a href={post.repo} className="text-blue-600">
-                      {post.repo}
+                      {addEllipsis(post.repo, 20)}
                     </a>
                   </div>
                 </div>
@@ -76,19 +76,19 @@ function Content() {
                     handleClickOpen();
                     handleDetailedView(post._id);
                   }}
-                  className="flex  py-4 cursor-pointer"
+                  className="flex  py-4 cursor-pointer max-[1200px]:flex-col"
                 >
                   <img
                     src={post.media}
                     alt="media"
-                    className="w-[500px] h-[300px] object-fill rounded-[32px]"
+                    className="w-[500px] h-[300px] object-fill rounded-[32px] max-[1200px]:mx-auto sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]"
                   />
 
                   <div className="px-4">
-                    <h1 className="font-semibold text-[28px] capitalize">
+                    <h1 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl capitalize">
                       {post.title}
                     </h1>
-                    <p className="text-[20px] mt-4">
+                    <p className="text-sm sm:text-base md:text-lg lg:text-xl mt-4">
                       {addEllipsis(post.caption, 130)}
                     </p>
                   </div>

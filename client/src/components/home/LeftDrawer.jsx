@@ -97,7 +97,7 @@ function LeftDrawer() {
   return (
     <div className="relative">
       <button onClick={toggleDrawer(true)}>
-        <HiveTwoTone className="text-[50px] absolute left-[0px]" />
+        <HiveTwoTone className="text-[50px] absolute left-[10px]" />
         <h1 className="absolute left-[60px] top-[100%] capitalize text-[24px]">
           {user?.username}
         </h1>
