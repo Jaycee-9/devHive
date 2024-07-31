@@ -6,7 +6,7 @@ import { CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { useData } from "@/utils/context";
 import UserPost from "./UserPost";
-export default function profileDataDialog({
+export default function UserProfileDialog({
   handleCloseDialog,
   openDialog,
   profileData,
