@@ -1,7 +1,14 @@
 import { addEllipsis } from "@/utils/elipsis";
 import { useState, useEffect } from "react";
-import { getAllCode, getSingleCode, uploadKudos } from "@/service/api";
+import {
+  getAllCode,
+  getSingleCode,
+  uploadKudos,
+  userDetails,
+  userPosts,
+} from "@/service/api";
 import DetailedCode from "./DetailedCode";
+import UserProfileDialog from "./UserProfileDialog";
 import { useData } from "@/utils/context";
 
 function Content() {
@@ -9,6 +16,10 @@ function Content() {
   const [code, setCode] = useState([]);
   const [kudosState, setKudosState] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [profileData, setProfileData] = useState([]);
+  const [profilePost, setProfilePost] = useState([]);
+
   const { user } = useData();
 
   const userId = user._id;
@@ -17,9 +28,22 @@ function Content() {
     setOpen(true);
   };
 
+  const handleClickOpenDialog = async (userId) => {
+    setOpenDialog(true);
+    const res = await userDetails(userId);
+    const post = await userPosts(userId);
+    setProfileData(res.data);
+    setProfilePost(post.data);
+  };
   const handleClose = () => {
     setOpen(false);
     setCode([]);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setProfileData([]);
+    setProfilePost([]);
   };
 
   useEffect(() => {
@@ -65,7 +89,12 @@ function Content() {
                     className="w-[50px] rounded-[50%] border-[2px] border-blue-950"
                   />
                   <div className="relative px-5">
-                    <h1>{post.user}</h1>
+                    <h1
+                      className="cursor-pointer"
+                      onClick={() => handleClickOpenDialog(post.userId)}
+                    >
+                      {post.user}
+                    </h1>
                     <a href={post.repo} className="text-blue-600">
                       {addEllipsis(post.repo, 20)}
                     </a>
@@ -150,6 +179,12 @@ function Content() {
           })}
       </div>
       <DetailedCode handleClose={handleClose} dialogOpen={open} code={code} />
+      <UserProfileDialog
+        handleCloseDialog={handleCloseDialog}
+        openDialog={openDialog}
+        profileData={profileData}
+        profilePost={profilePost}
+      />
     </>
   );
 }
