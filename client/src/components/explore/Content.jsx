@@ -19,6 +19,7 @@ function Content() {
   const [openDialog, setOpenDialog] = useState(false);
   const [profileData, setProfileData] = useState([]);
   const [profilePost, setProfilePost] = useState([]);
+  const [kudosNumber, setKudosNumber] = useState(0);
 
   const { user } = useData();
 
@@ -68,7 +69,18 @@ function Content() {
   };
 
   const uploadLike = async (postId) => {
-    await uploadKudos(postId, userId);
+    try {
+      // Perform the async operation to upload kudos to the backend
+      const response = await uploadKudos(postId, userId);
+
+      if (response.data && response.data.likes !== undefined) {
+        setKudosNumber(response.data.likes.length);
+      }
+    } catch (error) {
+      // Revert the optimistic update if the async operation fails
+      setKudosNumber((prevState) => prevState - 1);
+      console.error("Failed to upload kudos", error);
+    }
   };
 
   return (
@@ -138,7 +150,7 @@ function Content() {
                           alt="kudos"
                           className="w-[24px]"
                         />
-                        <p>{post.likes?.length} kudos</p>
+                        <p>{kudosNumber} kudos</p>
                       </div>
                     ) : (
                       <div

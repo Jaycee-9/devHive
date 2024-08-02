@@ -5,7 +5,7 @@ import { useData } from "@/utils/context";
 
 function AppBar({ code, handleClose }) {
   const { user } = useData();
-  console.log(user);
+
   const [follow, setFollow] = useState(false);
 
   const handleFollowReq = async (userId) => {

@@ -27,7 +27,7 @@ function UserPost({ userPost }) {
       ) : (
         <ul
           onClick={handleClickOpen}
-          className="grid grid-cols-1 gap-8 overflow-auto max-h-[500px]"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4  overflow-auto max-h-[500px]"
         >
           {userPost
             .sort((a, b) => new Date(b.createDate) - new Date(a.createDate))

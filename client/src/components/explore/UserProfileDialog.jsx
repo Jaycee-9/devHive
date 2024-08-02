@@ -6,6 +6,7 @@ import { CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { useData } from "@/utils/context";
 import UserPost from "./UserPost";
+
 export default function UserProfileDialog({
   handleCloseDialog,
   openDialog,
@@ -17,21 +18,24 @@ export default function UserProfileDialog({
   const displayContent = (view) => {
     setContent(view);
   };
+
   return (
     <Dialog
       open={openDialog}
       onClose={handleCloseDialog}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      fullWidth
+      maxWidth="lg"
     >
       <DialogContent>
         <DialogContentText className="h-[80vh] overflow-hidden ">
           {profileData && profilePost.length === 0 ? (
-            <div className="w-[500px] h-[80vh] flex justify-center items-center">
+            <div className="w-full h-[80vh] flex justify-center items-center">
               <CircularProgress />
             </div>
           ) : (
-            <div className="w-[500px] max-sm:w-full mx-auto bg-white shadow-lg rounded-lg ">
+            <div className="w-full mx-auto bg-white shadow-lg rounded-lg">
               <div className="relative p-10 bg-yellow-500 rounded-t-[32px]">
                 <img
                   src="/images/png/Explore_coder.png"
