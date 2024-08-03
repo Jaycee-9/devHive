@@ -150,7 +150,9 @@ function Content() {
                           alt="kudos"
                           className="w-[24px]"
                         />
-                        <p>{kudosNumber} kudos</p>
+                        <p>
+                          {kudosNumber ? kudosNumber : post.likes?.length} kudos
+                        </p>
                       </div>
                     ) : (
                       <div
