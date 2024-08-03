@@ -7,6 +7,7 @@ function Feed() {
     const getFollowingPost = async () => {
       const data = await getAllFollowings(user._id);
       console.log(data.data);
+      console.log("yes");
     };
     getFollowingPost();
   }, []);
