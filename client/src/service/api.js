@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "https://dev-hive-server.vercel.app";
+const URL = "http://localhost:8080";
 
 export const userSignup = async (credentials) => {
   try {
@@ -126,5 +126,17 @@ export const userPostDetails = async (postId) => {
   } catch (error) {
     console.log(`Error: ${error.message}`);
     throw error;
+  }
+};
+
+export const getAllFollowings = async (userId) => {
+  try {
+    const response = await axios.get(`${URL}/followings`, {
+      params: { userId },
+    });
+
+    return response;
+  } catch (error) {
+    console.log(`Error: ${error.message}`);
   }
 };
