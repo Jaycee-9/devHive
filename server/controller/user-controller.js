@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import Token from "../models/token.js";
+import CodePost from "../models/code_post.js";
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -119,5 +120,20 @@ export const getUserDetails = async (req, res) => {
     return res.status(200).json(userDetails);
   } catch (error) {
     res.status(500).json({ msg: "error while fetching user details" });
+  }
+};
+
+export const getFollowingsPost = async (req, res) => {
+  const { userId } = req.query;
+  try {
+    const followingsArray = await User.findById({ _id: userId });
+    const userPostIds = followingsArray.followings.map((user) => user._id);
+
+    const followingPost = await CodePost.find({ userId: { $in: userPostIds } });
+    res.status(200).json(followingPost);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ msg: "error while fetching followings post details" });
   }
 };

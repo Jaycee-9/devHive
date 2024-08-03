@@ -4,6 +4,7 @@ import {
   userLogin,
   followRequest,
   getUserDetails,
+  getFollowingsPost,
 } from "../controller/user-controller.js";
 import {
   uploadCode,
@@ -36,5 +37,5 @@ router.get("/code", getSingleCode);
 router.get("/user_details", getUserDetails);
 router.get("/user_posts", getUserPosts);
 router.get("/post_details", getPostDetails);
-
+router.get("/followings", getFollowingsPost);
 export default router;
