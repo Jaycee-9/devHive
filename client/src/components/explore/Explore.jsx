@@ -23,11 +23,11 @@ export default function Explore() {
   }
 
   return (
-    <>
+    <div className="px-10 max-sm:px-4">
       <LeftDrawer className="max-w-[200px]" />
       <div className="pt-1 mt-10">
         <Content />
       </div>
-    </>
+    </div>
   );
 }

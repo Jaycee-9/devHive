@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="px-10 max-sm:px-4">
       <LeftDrawer className="max-w-[200px]" />
-      <div className="max-w-[1200px] rounded-[32px] shadow-2xl p-10 mx-auto mt-[100px]">
+      <div className="pt-1 mt-10">
         <Feed />
       </div>
     </div>
