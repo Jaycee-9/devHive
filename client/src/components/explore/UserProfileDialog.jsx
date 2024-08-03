@@ -4,7 +4,9 @@ import DialogContent from "@mui/material/DialogContent";
 import { CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { useData } from "@/utils/context";
+import { followRequest } from "@/service/api";
 import UserPost from "./UserPost";
+import { Close } from "@mui/icons-material";
 
 export default function UserProfileDialog({
   handleCloseDialog,
@@ -13,9 +15,16 @@ export default function UserProfileDialog({
   profilePost,
 }) {
   const [content, setContent] = useState("posts");
+  const [follow, setFollow] = useState(false);
   const { user } = useData();
   const displayContent = (view) => {
     setContent(view);
+  };
+
+  const handleFollowReq = async (userId) => {
+    setFollow((prevState) => !prevState);
+    const res = await followRequest(userId, user._id);
+    console.log(res);
   };
 
   return (
@@ -33,7 +42,10 @@ export default function UserProfileDialog({
             <CircularProgress />
           </div>
         ) : (
-          <div className="w-full mx-auto bg-white shadow-lg rounded-lg">
+          <div className="w-full relative mx-auto bg-white shadow-lg rounded-lg">
+            <div className="absolute right-5 top-5 z-10 cursor-pointer">
+              <Close onClick={handleCloseDialog} />
+            </div>
             <div className="relative p-10 bg-yellow-500 rounded-t-[32px]">
               <img
                 src="/images/png/Explore_coder.png"
@@ -43,9 +55,18 @@ export default function UserProfileDialog({
               {profileData._id === user._id ? (
                 ""
               ) : (
-                <button className="bg-blue-500 text-white font-semibold m-2 py-2 px-4 rounded-full shadow-md hover:bg-blue-600 hover:shadow-lg transition duration-300 ease-in-out block mx-auto">
-                  Follow
-                </button>
+                <div className="flex justify-center py-2 items-center h-full">
+                  <button
+                    onClick={() => handleFollowReq(profileData._id)}
+                    className={`px-4 py-1 rounded-full text-white font-medium transition-all duration-300 ${
+                      follow
+                        ? "bg-green-500 hover:bg-green-600"
+                        : "bg-red-500 hover:bg-red-600"
+                    }`}
+                  >
+                    {follow ? "Following" : "Follow"}
+                  </button>
+                </div>
               )}
               <div className="absolute w-[70%] mx-auto mt-1 bg-purple-700 left-1/2 transform -translate-x-1/2 rounded-[32px] p-4 shadow-md">
                 <h1 className="text-white font-bold text-center text-lg">
